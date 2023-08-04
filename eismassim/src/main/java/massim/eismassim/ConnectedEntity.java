@@ -46,7 +46,7 @@ public abstract class ConnectedEntity extends Entity {
 
     private final Set<Percept> simStartPercepts = new HashSet<>();
     private final Set<Percept> previousSimStartPercepts = new HashSet<>();
-    private final Set<Percept> requestActionPercepts = new HashSet<>();
+    public Set<Percept> requestActionPercepts = new HashSet<>();
     private final Set<Percept> previousRequestActionPercepts = new HashSet<>();
     private final Set<Percept> simEndPercepts = new HashSet<>();
     private final Set<Percept> previousSimEndPercepts = new HashSet<>();

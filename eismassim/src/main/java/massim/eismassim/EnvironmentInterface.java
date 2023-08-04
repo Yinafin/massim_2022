@@ -91,6 +91,30 @@ public class EnvironmentInterface extends EIDefaultImpl implements Runnable{
     @Override
     protected PerceptUpdate getPerceptsForEntity(String name) throws PerceiveException, NoEnvironmentException {
         var e = entities.get(name);
+        if (e instanceof ScenarioEntity) {
+            ScenarioEntity currentScenarioEnitity = (ScenarioEntity) e;
+            var scenarioEntities = entities.values().stream().filter(entity -> entity instanceof ScenarioEntity);
+            scenarioEntities.forEach(scenarioEntity ->
+                {
+                    ((ScenarioEntity)scenarioEntity).requestActionPercepts.stream().forEach(percept ->
+                    {
+                        // prevent self perception
+                        boolean isCurrentScenarioEntity = scenarioEntity.getName().equals(currentScenarioEnitity.getName());
+                        ArrayList<String> perceptsToForward = new ArrayList<String>();
+                        perceptsToForward.add("thing");
+                        perceptsToForward.add("lastAction");
+                        perceptsToForward.add("lastActionResult");
+                        perceptsToForward.add("lastActionParams");
+                        if (!isCurrentScenarioEntity && perceptsToForward.contains(percept.getName()))
+                        {
+                            List<Parameter> parameters = new ArrayList<Parameter>();
+                            parameters.add(new Identifier(scenarioEntity.getName()));
+                            parameters.addAll(percept.getClonedParameters());
+                            currentScenarioEnitity.requestActionPercepts.add(new Percept(percept.getName(), parameters));
+                        }
+                    });
+                });
+        }
         if (e == null) throw new PerceiveException("unknown entity");
         if (e instanceof ConnectedEntity && ((ConnectedEntity) e).isNotConnected()) {
             if (throwExceptions)

@@ -23,3 +23,6 @@ docs/*.html
 logs/*
 replays/*
 results/*
+eismassim/bin
+eismassim/out
+javaagents/bin

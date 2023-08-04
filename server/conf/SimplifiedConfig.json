@@ -5,7 +5,7 @@
     "launch" : "key",
     "port" : 12300,
     "backlog" : 10000,
-    "agentTimeout" : 4000,
+    "agentTimeout" : 40000,
     "resultPath" : "results",
     "logLevel" : "normal",
     "logPath" : "logs",
@@ -25,7 +25,7 @@
       "steps" : 750,
       "randomSeed" : 17,
       "randomFail" : 1,
-      "entities" : {"standard" : 20},
+      "entities" : {"standard" : 2},
       "clusterBounds" : [1,3],
 
       "roles" : "$(sim/roles/standard.json)",
@@ -40,18 +40,18 @@
       "attachLimit" : 10,
 
       "grid" : {
-        "height" : 70,
-        "width" : 70,
+        "height" : 10,
+        "width" : 10,
         "instructions": [
           ["cave", 0.6, 2, 5, 4]
         ],
         "goals": {
-          "number" : 4,
+          "number" : 1,
           "size" : [1,3],
           "moveProbability": 0.1
         },
         "roleZones" : {
-          "number" : 5,
+          "number" : 2,
           "size" : [3, 5]
         }
       },
@@ -76,7 +76,7 @@
 
       "regulation" : "$(sim/norms/standard.json)",
 
-      "absolutePosition" : true
+      "absolutePosition" : false
     }
   ],
 
